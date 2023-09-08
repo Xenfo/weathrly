@@ -1,14 +1,16 @@
 use clap::Subcommand;
 pub use predict::*;
+pub use today::*;
 
 mod predict;
+mod today;
 
 #[derive(Subcommand)]
 pub enum Command {
+    /// Get the weather for today
+    Today,
     /// Predict the weather for a given city
     Predict {
-        /// The city to predict the weather for
-        city: String,
         /// The date to predict the weather for (format: YYYY-MM-DD)
         date: String,
     },

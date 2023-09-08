@@ -1,3 +1,5 @@
+#![feature(exclusive_range_pattern)]
+
 use clap::Parser;
 
 mod api;
@@ -6,6 +8,9 @@ mod commands;
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
+    /// The city to get weather for
+    city: String,
+
     #[command(subcommand)]
     command: commands::Command,
 }
@@ -15,8 +20,11 @@ async fn main() {
     let args = Cli::parse();
 
     match args.command {
-        commands::Command::Predict { city, date } => {
-            commands::predict(city, date).await;
+        commands::Command::Today => {
+            commands::today(args.city).await;
+        }
+        commands::Command::Predict { date } => {
+            commands::predict(args.city, date).await;
         }
     }
 }
