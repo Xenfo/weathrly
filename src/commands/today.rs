@@ -17,7 +17,7 @@ pub async fn today(city: String) {
     let city_info = city_info.first().unwrap();
 
     let weather_url = format!(
-        "https://api.open-meteo.com/v1/forecast?latitude={}&longitude={}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,precipitation&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&past_days=1&forecast_days=1",
+        "https://api.open-meteo.com/v1/forecast?latitude={}&longitude={}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,precipitation&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1",
         city_info.latitude, city_info.longitude
     );
     let weather_response = reqwest::get(weather_url)
@@ -43,14 +43,15 @@ pub async fn today(city: String) {
     );
     println!("Status: {}", weather_code);
     println!(
-        "Low: {:.1}°C",
-        weather_response.daily.temperature_2m_min.first().unwrap()
+        "Low: {}°C",
+        weather_response.daily.temperature_2m_min.first().unwrap().round()
     );
     println!(
-        "High: {:.1}°C",
-        weather_response.daily.temperature_2m_max.first().unwrap()
+        "High: {}°C",
+        weather_response.daily.temperature_2m_max.first().unwrap().round()
     );
 
+    println!();
     println!("Hourly forecast:");
     let mut builder = tabled::builder::Builder::default();
     builder.set_header(["Time", "Temperature", "Feels Like", "Humidity", "Precipitation Chance", "Precipitation"]);
@@ -85,11 +86,11 @@ pub async fn today(city: String) {
 
                 builder.push_record([
                     time,
-                    format!("{} °C", temp),
-                    format!("{} °C", feels_like),
+                    format!("{}°C", temp.round()),
+                    format!("{}°C", feels_like.round()),
                     format!("{}%", humidity),
                     format!("{}%", precipitation_probability),
-                    format!("{}mm", precipitation),
+                    format!("{}mm", precipitation.round()),
                 ]);
             },
         );
