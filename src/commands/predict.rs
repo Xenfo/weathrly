@@ -88,8 +88,8 @@ pub async fn predict(city: String, date: String) {
 
     println!("Location: {}, {}", city_info.name, city_info.country);
     println!("Date: {}", target_date);
-    println!("Low: {}°C", data[1]);
-    println!("High: {}°C", data[0]);
-    println!("Feels Like (Low): {}°C", data[3]);
-    println!("Feels Like (High): {}°C", data[2]);
+    println!("Low: {}°C", data[1].round());
+    println!("High: {}°C", data[0].round());
+    println!("Feels Like (Low): {}°C", data[3].round());
+    println!("Feels Like (High): {}°C", data[2].round());
 }
