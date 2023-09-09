@@ -2,6 +2,7 @@
 
 Weather utilities (today's forecast and forecast predictions) made for my CS50x final project.
 
+### Video Demo: https://youtu.be/arjHjG8wX2g
 ### Description:
 
 This project is a utility for getting today's weather or predictions for the future right in your terminal. I got the idea from my upcoming trip to Italy in March, 2024, where I wanted to ballpark the temperatures that I might experience on my trip. I then expanded it to include today's weather.
